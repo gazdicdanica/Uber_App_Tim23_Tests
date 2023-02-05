@@ -33,8 +33,14 @@ public class DriverMainPage {
     }
 
     public void logout() {
+        hoverDropdown();
+        logoutBtn.click();
+    }
+
+    private void hoverDropdown() {
+//        (new WebDriverWait(driver, 10)).
+//                until(ExpectedConditions.visibilityOf(dropdownImg)).click();
         Actions actions = new Actions(driver);
         actions.moveToElement(dropdownImg).perform();
-        logoutBtn.click();
     }
 }
