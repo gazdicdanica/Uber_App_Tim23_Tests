@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -8,9 +9,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
 public class PassengerMainPage {
 
-    private WebDriver webDriver;
+    private final String EMPTY_LOCATION_ALERT = "Please enter both start and end location!";
+
+    private final WebDriver webDriver;
 
     @FindBy(id = "photo2")
     private WebElement dropdownImg;
@@ -20,6 +26,15 @@ public class PassengerMainPage {
 
     @FindBy(id = "logout-btn-psngr")
     private WebElement logoutBtn;
+
+    @FindBy(id="next-btn")
+    private WebElement nextBtn;
+
+    @FindBy(id = "start-point")
+    private WebElement startLocation;
+
+    @FindBy(id = "end-point")
+    private WebElement endLocation;
 
     public PassengerMainPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -43,5 +58,16 @@ public class PassengerMainPage {
     public void logout() {
         hoverDropdown();
         logoutBtn.click();
+    }
+
+    public void enterStartLocation(){
+
+    }
+
+    public void submitEmptyOrder(){
+        (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.elementToBeClickable(nextBtn)).click();
+        Alert alert = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.alertIsPresent());
+        String text = alert.getText();
+        assertEquals(EMPTY_LOCATION_ALERT, text);
     }
 }

@@ -1,17 +1,15 @@
 package tests;
 
 import helper.Helper;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 import pages.BaseMainPage;
 import pages.DriverMainPage;
 import pages.LoginPage;
 import pages.PassengerMainPage;
 
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTest extends BaseTest {
     private final String EMAIL_DRIVER="pp@gmail.com";
@@ -34,7 +32,7 @@ public class LoginTest extends BaseTest {
 //        mainPage.openLogin();
 //    }
 
-    @Test(testName = "Driver Login", priority = 2)
+    @Test
     public void testLoginAsDriverSuccessful() {
         BaseMainPage mainPage = new BaseMainPage(webDriver);
         mainPage.openLogin();
@@ -52,7 +50,7 @@ public class LoginTest extends BaseTest {
         assertTrue(mainPage.containsLoginBtn());
     }
 
-    @Test(testName = "User Login", priority = 2)
+    @Test
     public void testLoginAsPassengerSuccessful() {
         BaseMainPage mainPage = new BaseMainPage(webDriver);
         mainPage.openLogin();
@@ -71,7 +69,7 @@ public class LoginTest extends BaseTest {
 
     }
 
-    @Test(testName = "invalid input", priority = 2)
+    @Test
     public void testLoginInvalidInputFailure() {
         BaseMainPage mainPage = new BaseMainPage(webDriver);
         mainPage.openLogin();
