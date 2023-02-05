@@ -34,6 +34,8 @@ public class PassengerMainPage {
     }
 
     private void hoverDropdown() {
+//        (new WebDriverWait(webDriver, 10)).
+//                until(ExpectedConditions.visibilityOf(dropdownImg)).click();
         Actions actions = new Actions(webDriver);
         actions.moveToElement(dropdownImg).perform();
     }
