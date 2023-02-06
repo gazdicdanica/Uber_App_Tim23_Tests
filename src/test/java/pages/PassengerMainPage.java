@@ -104,4 +104,14 @@ public class PassengerMainPage {
         assertEquals(INVALID_LOCATION_ALERT, text);
         alert.dismiss();
     }
+
+    public void createValidRide() {
+        (new WebDriverWait(webDriver, 10)).
+                until(ExpectedConditions.visibilityOf(startLocation));
+        clearOutlocations();
+        submitValidLocations();
+
+        (new WebDriverWait(webDriver, 10)).
+                until(ExpectedConditions.elementToBeClickable(nextBtn)).click();
+    }
 }
