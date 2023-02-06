@@ -21,6 +21,9 @@ public class DriverMainPage {
     @FindBy(id = "offline-text")
     private WebElement offlineText;
 
+    @FindBy(id="onlineToggle")
+    private WebElement toggle;
+
     public DriverMainPage(WebDriver driver) {
         this.driver = driver;
 
@@ -43,4 +46,9 @@ public class DriverMainPage {
         Actions actions = new Actions(driver);
         actions.moveToElement(dropdownImg).perform();
     }
+
+    public void startShift(){
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(toggle)).click();
+    }
+
 }

@@ -67,13 +67,22 @@ public class PassengerMainPage {
         logoutBtn.click();
     }
 
-    public void enterStartLocation(){
+    public void clearOutlocations(){
+        startLocation.clear();
+        endLocation.clear();
+    }
+
+    public void submitValidLocations(){
+        (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOf(startLocation));
+        clearOutlocations();
+        startLocation.sendKeys(VALID_START);
+        endLocation.sendKeys(VALID_END);
+        nextBtn.click();
 
     }
 
     public void submitEmptyLocations(){
-        startLocation.clear();
-        endLocation.clear();
+        clearOutlocations();
         (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.elementToBeClickable(nextBtn)).click();
         Alert alert = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.alertIsPresent());
         String text = alert.getText();
@@ -83,8 +92,7 @@ public class PassengerMainPage {
     }
 
     public void submitInvalidLocations(){
-        startLocation.clear();
-        endLocation.clear();
+        clearOutlocations();
         (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOf(startLocation));
         startLocation.sendKeys(INVALID_START);
         endLocation.sendKeys(INVALID_END);

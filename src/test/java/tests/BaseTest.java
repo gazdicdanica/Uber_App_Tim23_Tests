@@ -11,7 +11,6 @@ public class BaseTest {
 
     @BeforeAll
     public static void initDriver() {
-        System.err.println("init");
         System.setProperty("WebDriver.chrome.driver", "./chromedriver.exe");
         webDriver = new ChromeDriver();
 
