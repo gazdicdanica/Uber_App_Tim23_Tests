@@ -80,8 +80,9 @@ public class PassengerRideInfoPage {
         alert.dismiss();
     }
 
-    public void submitProperVehicleType(){
-        vehicleTypeStandard.click();
+    public void submitProperVehicleType() {
+        (new WebDriverWait(driver, 10)).
+                until(ExpectedConditions.elementToBeClickable(vehicleTypeStandard)).click();
         startRideBtn.click();
     }
 
@@ -131,5 +132,10 @@ public class PassengerRideInfoPage {
         alert.dismiss();
     }
 
-
+    public void createValidRide() {
+        (new WebDriverWait(driver, 10)).
+                until(ExpectedConditions.elementToBeClickable(startRideBtn)).
+                isEnabled();
+        submitProperVehicleType();
+    }
 }

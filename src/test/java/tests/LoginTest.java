@@ -12,19 +12,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTest extends BaseTest {
-    private final String EMAIL_DRIVER="pp@gmail.com";
-    private final String PASSWORD_DRIVER="123";
+    private static final String EMAIL_DRIVER="pp@gmail.com";
+    private static final String PASSWORD_DRIVER="123";
 
-    private final String EMAIL_USER="test@email.com";
-    private final String PASSWORD_USER="123";
+    private static final String EMAIL_USER="test@email.com";
+    private static final String PASSWORD_USER="123";
 
 
     private final String LOGIN_PAGE_TEXT="Don't have an account? SIGN UP";
 
-    @BeforeEach
-    public void setUp() {
-
-    }
 
 //    @Before
 //    public void openAirRide() {
