@@ -55,6 +55,6 @@ public class LoginPage {
         System.err.println("Vrednosti:" + email + " " + pw);
         setEmail(email);
         setPassword(pw);
-        loginBtnForm.click();
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(loginBtnForm)).click();
     }
 }
