@@ -9,7 +9,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,11 +26,11 @@ public class PassengerRideInfoPage {
     private final String NO_ONLINE_DRIVER_ALERT = "No drivers are online.";
     private final String ADD_FRIEND_ALERT = "Friend Added Successfully";
     private final String ADD_JD_ALERT = "User With This Email Does Not Exist";
-    private final String RIDE_UNSUCCESS_ALERT = "Cannot create a ride while you have one already pending!";
-
+    private final String RIDE_UNSUCCESSFUL_ALERT = "Cannot create a ride while you have one already pending!";
+    private final String NOTIFIED_ALERT = "System notified, see you soon";
     private final String EXISTING_EMAIL = "test2@email.com";
     private final String NON_EXISTING_EMAIL = "aaaa@gmail.com";
-    private final String SELF_EMAIL = "test@email.com";
+
 
     @FindBy(css = ".column-info > #start-ride-btn")
     private WebElement startRideBtn;
@@ -128,7 +132,7 @@ public class PassengerRideInfoPage {
     public void waitForAlert(){
         Alert alert = (new WebDriverWait(driver, 10)).until(ExpectedConditions.alertIsPresent());
         String text = alert.getText();
-        assertEquals(RIDE_UNSUCCESS_ALERT, text);
+        assertEquals(RIDE_UNSUCCESSFUL_ALERT, text);
         alert.dismiss();
     }
 
@@ -137,5 +141,29 @@ public class PassengerRideInfoPage {
                 until(ExpectedConditions.elementToBeClickable(startRideBtn)).
                 isEnabled();
         submitProperVehicleType();
+    }
+
+    public void inputTime(){
+        timeSelect.click();
+        LocalDateTime time = LocalDateTime.now().plusMinutes(15);
+        Instant instant = time.atZone(ZoneId.systemDefault()).toInstant();
+        Date date = Date.from(instant);
+
+        SimpleDateFormat display = new SimpleDateFormat("hh:mm");
+        String timeValue = display.format(date);
+        timeInput.sendKeys(timeValue);
+    }
+
+    public void waitForScheduleAlert(){
+        Alert alert = (new WebDriverWait(driver, 10)).until(ExpectedConditions.alertIsPresent());
+        String text = alert.getText();
+        assertEquals(NOTIFIED_ALERT, text);
+        alert.dismiss();
+    }
+
+    public void cleanUp(){
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(cancelBtn)).click();
+        Alert alert = (new WebDriverWait(driver, 10)).until(ExpectedConditions.alertIsPresent());
+        alert.dismiss();
     }
 }
