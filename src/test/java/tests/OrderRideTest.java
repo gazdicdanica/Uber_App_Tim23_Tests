@@ -8,7 +8,7 @@ import pages.*;
 
 import java.sql.Driver;
 
-@TestMethodOrder(MethodOrderer.MethodName.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class OrderRideTest extends BaseTest{
 
     private static String EMAIL="test@email.com";
@@ -34,8 +34,9 @@ public class OrderRideTest extends BaseTest{
         webDriver.get("http://localhost:4200");
     }
 
+    @Order(2)
     @Test
-    public void ztestSuccessfulRideOrder(){
+    public void testSuccessfulRideOrder(){
         loginDriver();
         passengerMainPage.submitValidLocations();
         PassengerRideInfoPage rideInfoPage = new PassengerRideInfoPage(webDriver);
@@ -44,13 +45,13 @@ public class OrderRideTest extends BaseTest{
         rideInfoPage.checkBabies();
         rideInfoPage.submitProperVehicleType();
         rideInfoPage.waitForDialog();
-
+        rideInfoPage.cleanUp();
         driver.quit();
 
     }
-
+    @Order(4)
     @Test
-    public void ztestUnsuccessfulRideOrder(){
+    public void testUnsuccessfulRideOrder(){
         passengerMainPage.submitValidLocations();
         PassengerRideInfoPage rideInfoPage = new PassengerRideInfoPage(webDriver);
         Assertions.assertTrue(rideInfoPage.isPageLoaded());
@@ -61,16 +62,34 @@ public class OrderRideTest extends BaseTest{
 
     }
 
+    @Order(3)
+    @Test
+    public void testScheduleRideOrder(){
+        passengerMainPage.submitValidLocations();
+        PassengerRideInfoPage rideInfoPage = new PassengerRideInfoPage(webDriver);
+        Assertions.assertTrue(rideInfoPage.isPageLoaded());
+        rideInfoPage.submitExistingEmail();
+        rideInfoPage.checkBabies();
+        rideInfoPage.inputTime();
+        Helper.takeScreenShot(webDriver, "debug/wtf");
+        rideInfoPage.submitProperVehicleType();
+        rideInfoPage.waitForScheduleAlert();
+    }
+
+    @Order(1)
     @Test
     public void testEmptyLocationsRideOrder(){
         passengerMainPage.submitEmptyLocations();
     }
 
+    @Order(1)
     @Test
     public void testInvalidLocationsRideOrder(){
         passengerMainPage.submitInvalidLocations();
     }
 
+
+    @Order(1)
     @Test
     public void testNoVehicleType(){
         passengerMainPage.submitValidLocations();
@@ -80,6 +99,7 @@ public class OrderRideTest extends BaseTest{
 
     }
 
+    @Order(1)
     @Test
     public void testNoDriversOnline(){
         passengerMainPage.submitValidLocations();
@@ -106,6 +126,7 @@ public class OrderRideTest extends BaseTest{
         driverMainPage.logout();
     }
 
+    @Order(1)
     @Test
     public void testNoProperDrivers(){
         loginDriver();
@@ -119,6 +140,7 @@ public class OrderRideTest extends BaseTest{
 
     }
 
+    @Order(1)
     @Test
     public void testAddFriendUnsuccess(){
         passengerMainPage.submitValidLocations();
